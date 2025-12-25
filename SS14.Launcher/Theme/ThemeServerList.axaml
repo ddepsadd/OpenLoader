@@ -1,0 +1,10 @@
+<Styles xmlns="https://github.com/avaloniaui">
+  <Style Selector="ItemsControl.ServerList > ContentPresenter:nth-child(2n)">
+    <Setter Property="Background">
+      <SolidColorBrush Color="#262626" />
+    </Setter>
+  </Style>
+  <Style Selector=":is(Panel).ServerFilterGroup">
+    <Setter Property="Margin" Value="4" />
+  </Style>
+</Styles>

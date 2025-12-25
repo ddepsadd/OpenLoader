@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../Launcher.props" />
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <!--<OutputType Condition="'$(Configuration)' == 'Release'">WinExe</OutputType>-->
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Marsey\Marsey.csproj" />
+    <ProjectReference Include="..\Robust.LoaderApi\Robust.LoaderApi\Robust.LoaderApi.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- I'm not making a new shared project for a single enum. -->
+    <Compile Include="../SS14.Launcher/Models/ContentManagement/ContentCompressionScheme.cs" />
+    <Compile Include="../SS14.Launcher/Utility/ZStd.cs" />
+    <Compile Include="../SS14.Launcher/Utility/Libc.cs" />
+    <Compile Include="../SS14.Launcher/Utility/SqliteBlobStream.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" />
+    <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="NSec.Cryptography" />
+    <PackageReference Include="Robust.Natives" />
+    <PackageReference Include="SharpZstd.Interop" />
+    <PackageReference Include="Microsoft.NET.ILLink.Tasks" />
+  </ItemGroup>
+
+</Project>

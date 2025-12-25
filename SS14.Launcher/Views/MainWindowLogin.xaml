@@ -1,0 +1,28 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:SS14.Launcher.ViewModels;assembly=SS14.Launcher"
+             xmlns:vl="clr-namespace:SS14.Launcher.Views.Login;assembly=SS14.Launcher"
+             xmlns:views="clr-namespace:SS14.Launcher.Views"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="SS14.Launcher.Views.MainWindowLogin">
+  <Design.DataContext>
+    <vm:MainWindowLoginViewModel />
+  </Design.DataContext>
+
+  <DockPanel LastChildFill="True">
+    <!-- The bottom -->
+    <DockPanel Background="{DynamicResource ThemeStripeBackBrush}" DockPanel.Dock="Bottom"
+               LastChildFill="False">
+
+      <CheckBox DockPanel.Dock="Left" VerticalAlignment="Center" Margin="4" IsChecked="{Binding LogLauncher}">Log Launcher</CheckBox>
+
+      <TextBlock Text="{Binding Version}" DockPanel.Dock="Right" VerticalAlignment="Center" Margin="4"
+                 Classes="SubText" />
+    </DockPanel>
+    <Panel Background="{DynamicResource ThemeStripebackEdgeBrush}" MinHeight="2" DockPanel.Dock="Bottom" />
+
+    <ContentControl Content="{Binding Screen}" />
+  </DockPanel>
+</UserControl>

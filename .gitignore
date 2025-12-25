@@ -1,0 +1,12 @@
+bin/
+obj/
+.idea/
+*.zip
+*.DotSettings.user
+.DS_Store
+cmake-build*
+publish_test
+Dependencies
+SS14.Launcher/FodyWeavers.xsd
+
+!PublishFiles/Space Station 14 Launcher.app/Contents/Resources/bin/
