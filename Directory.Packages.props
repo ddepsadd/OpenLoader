@@ -11,6 +11,7 @@
     <PackageVersion Include="Lib.Harmony" Version="2.4.2" />
     <PackageVersion Include="NP.Ava.Visuals" Version="1.0.5" />
     <PackageVersion Include="NSec.Cryptography" Version="24.5.0-preview.1" />
+    <PackageVersion Include="Robust.Natives.Sdl3" Version="0.1.1-sdl3.2.20" />
     <PackageVersion Include="SharpZstd.Interop" Version="1.5.5-beta1" />
     <PackageVersion Include="JetBrains.Annotations" Version="2025.2.4" />
     <!-- Loader -->
