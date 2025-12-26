@@ -17,7 +17,13 @@ public sealed class ServerInfo
     [JsonPropertyName("links")] public ServerInfoLink[]? Links { get; set; }
 }
 
-public sealed record ServerInfoLink(string Name, string? Icon, string Url);
+public sealed record ServerInfoLink(string Name, string? Icon, string Url)
+{
+    // Конструктор без параметров для XAML дизайнера
+    public ServerInfoLink() : this(string.Empty, null, string.Empty)
+    {
+    }
+}
 
 public class ServerAuthInformation
 {

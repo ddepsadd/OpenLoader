@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,6 +34,7 @@ namespace SS14.Launcher;
 internal static class Program
 {
     private static Task? _serverTask;
+    private static bool _designTimeServicesRegistered;
 
     // Initialization code. Don't use any Avalonia, third-party APIs or any
     // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
@@ -221,6 +223,62 @@ internal static class Program
     }
 
     // Avalonia configuration, don't remove; also used by visual designer.
+    // Avalonia configuration, don't remove; also used by visual designer.
+    // The Designer requires a parameterless BuildAvaloniaApp() method.
+    public static AppBuilder BuildAvaloniaApp()
+    {
+        // Designer path: Main() is NOT executed, so runtime DI isn't set up.
+        if (Design.IsDesignMode)
+            RegisterDesignTimeServicesOnce();
+
+        return AppBuilder.Configure<App>()
+            .UsePlatformDetect()
+            .With(new FontManagerOptions
+            {
+                DefaultFamilyName = "avares://SS14.Launcher/Assets/Fonts/noto_sans/*.ttf#Noto Sans"
+            })
+            .UseReactiveUI();
+    }
+
+
+    private static void RegisterDesignTimeServicesOnce()
+    {
+        if (_designTimeServicesRegistered)
+            return;
+
+        _designTimeServicesRegistered = true;
+
+        try
+        {
+            var locator = Locator.CurrentMutable;
+
+            // Минимальный набор: то, что обычно дергают VM/utility через Locator.
+            locator.RegisterConstant(new LauncherMessaging());
+
+            // Важно: НЕ вызываем cfg.Load() в дизайнере (может лезть на диск/в окружение).
+            var cfg = new DataManager();
+            locator.RegisterConstant(cfg);
+
+            // HttpClient сам по себе безвреден для дизайнера (пока вы не делаете запросы).
+            var http = new HttpClient();
+            locator.RegisterConstant(http);
+
+            // Если HubSettingsViewModel требует HubApi/другие API через DI — добавляем и их.
+            var authApi = new AuthApi(http);
+            locator.RegisterConstant(authApi);
+            locator.RegisterConstant(new HubApi(http));
+
+            // Добавляем LoginManager, который требуется для MainWindowLoginViewModel
+            locator.RegisterConstant(new LoginManager(cfg, authApi));
+        }
+        catch
+        {
+            // Дизайнер не должен падать из-за design-time DI.
+            // Если что-то не получилось зарегистрировать — лучше пусть превью будет "пустым", чем IDE падает.
+        }
+    }
+
+    // Runtime-only configuration with DI/services.
     private static AppBuilder BuildAvaloniaApp(DataManager cfg)
     {
         var locator = Locator.CurrentMutable;

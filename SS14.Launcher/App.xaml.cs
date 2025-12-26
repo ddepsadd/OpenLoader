@@ -23,15 +23,18 @@ public class App : Application
         ["LogoLong"] = new AssetDef("logo-long.png", AssetType.Bitmap),
     };
 
-    private readonly OverrideAssetsManager _overrideAssets;
+    private readonly OverrideAssetsManager? _overrideAssets;
 
     private readonly Dictionary<string, object> _baseAssets = new();
 
-    // XAML insists on a parameterless constructor existing, despite this never being used.
+    // XAML insists on a parameterless constructor existing.
     [UsedImplicitly]
     public App()
     {
-        throw new InvalidOperationException();
+        // Designer creates App() via reflection.
+        // In runtime we still want to prevent accidental use.
+        if (!Design.IsDesignMode)
+            throw new InvalidOperationException();
     }
 
     public App(OverrideAssetsManager overrideAssets)
@@ -43,10 +46,15 @@ public class App : Application
     {
         AvaloniaXamlLoader.Load(this);
 
+        // IMPORTANT: Designer doesn't have runtime DI/services.
+        if (Design.IsDesignMode)
+            return;
+
         LoadBaseAssets();
         IconsLoader.Load(this);
 
-        _overrideAssets.AssetsChanged += OnAssetsChanged;
+        if (_overrideAssets != null)
+            _overrideAssets.AssetsChanged += OnAssetsChanged;
     }
 
     private void LoadBaseAssets()
