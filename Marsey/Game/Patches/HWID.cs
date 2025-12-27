@@ -21,16 +21,15 @@ public static class HWID
     /// </summary>
     public static void Force()
     {
-        // TODO: Further work on HWID2
-        // While currently trust is not used, I suspect having an empty hwid string will harm its value
-        // This is made so you couldn't hwid ban other people this easily
-        // As of 10/4/2024 hwid2 instead of this bullshit you can pass an env variable to tell the client that you're not sending your hwid
+        bool hasValidHwid = !string.IsNullOrEmpty(_hwidString) && CheckHWID(_hwidString);
 
-        // Check if forcing is enabled
-        if (!MarseyConf.ForceHWID)
+        if (!MarseyConf.ForceHWID && !hasValidHwid)
+        {
+            MarseyLogger.Log(MarseyLogger.LogType.INFO, "HWIDForcer", "No custom HWID provided and Force is disabled. Using real hardware ID.");
             return;
+        }
 
-        MarseyLogger.Log(MarseyLogger.LogType.INFO, "HWIDForcer", $"Trying to apply {_hwidString}");
+        MarseyLogger.Log(MarseyLogger.LogType.INFO, "HWIDForcer", $"Applying custom HWID: {_hwidString}");
 
         string cleanedHwid = CleanHwid(_hwidString);
         ForceHWID(cleanedHwid);

@@ -248,13 +248,14 @@ public sealed class DataManager : ReactiveObject
     {
         // Load logins.
         _logins.AddOrUpdate(
-            sqliteConnection.Query<(Guid id, string name, string token, DateTimeOffset expires)>(
-                    "SELECT UserId, UserName, Token, Expires FROM Login")
+            sqliteConnection.Query<(Guid id, string name, string token, string? hwid, DateTimeOffset expires)>(
+                    "SELECT UserId, UserName, Token, HWID, Expires FROM Login")
                 .Select(l => new LoginInfo
                 {
                     UserId = l.id,
                     Username = l.name,
-                    Token = new LoginToken(l.token, l.expires)
+                    Token = new LoginToken(l.token, l.expires),
+                    HWID = l.hwid ?? ""
                 }));
 
         // Favorites
@@ -404,15 +405,16 @@ public sealed class DataManager : ReactiveObject
             login.UserId,
             UserName = login.Username,
             login.Token.Token,
-            Expires = login.Token.ExpireTime
+            Expires = login.Token.ExpireTime,
+            login.HWID
         };
         AddDbCommand(con =>
         {
             con.Execute(reason switch
                 {
-                    ChangeReason.Add => "INSERT INTO Login VALUES (@UserId, @UserName, @Token, @Expires)",
+                    ChangeReason.Add => "INSERT INTO Login (UserId, UserName, Token, Expires, HWID) VALUES (@UserId, @UserName, @Token, @Expires, @HWID)",
                     ChangeReason.Update =>
-                        "UPDATE Login SET UserName = @UserName, Token = @Token, Expires = @Expires WHERE UserId = @UserId",
+                        "UPDATE Login SET UserName = @UserName, Token = @Token, Expires = @Expires, HWID = @HWID WHERE UserId = @UserId",
                     ChangeReason.Remove => "DELETE FROM Login WHERE UserId = @UserId",
                     _ => throw new ArgumentOutOfRangeException(nameof(reason), reason, null)
                 },

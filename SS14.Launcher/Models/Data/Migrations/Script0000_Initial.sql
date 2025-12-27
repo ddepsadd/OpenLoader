@@ -2,7 +2,8 @@
     UserId TEXT PRIMARY KEY NOT NULL, -- GUID
     UserName TEXT NOT NULL,
     Token TEXT NOT NULL,
-    Expires DATETIME NOT NULL
+    Expires DATETIME NOT NULL,
+    HWID TEXT
 );
 
 CREATE TABLE Config (

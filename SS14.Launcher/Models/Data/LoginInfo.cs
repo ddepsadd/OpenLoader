@@ -12,7 +12,7 @@ public class LoginInfo : ReactiveObject
     public string Username { get; set; } = default!;
     [Reactive]
     public LoginToken Token { get; set; }
-
+    [Reactive]
     public string HWID { get; set; } = ""; // Empty by default
 
     public override string ToString()

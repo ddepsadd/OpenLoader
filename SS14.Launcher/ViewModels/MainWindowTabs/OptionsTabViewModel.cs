@@ -63,6 +63,7 @@ public class OptionsTabViewModel : MainWindowTabViewModel, INotifyPropertyChange
         SetEndpointCommand = new RelayCommand(OnSetEndpointClick);
         DumpConfigCommand = new RelayCommand(DumpConfig.Dump);
 
+        PrepareHwidForLaunch();
         Persist.UpdateLauncherConfig();
         SetTempHwid();
         SetTempGuestUsername();
@@ -328,6 +329,27 @@ public class OptionsTabViewModel : MainWindowTabViewModel, INotifyPropertyChange
     private void SetTempGuestUsername()
     {
         _guestUname = Cfg.GetCVar(CVars.GuestUsername);
+    }
+    public void PrepareHwidForLaunch()
+    {
+        var account = _loginManager.ActiveAccount;
+        if (account == null) return;
+
+        if (LIHWIDBind && string.IsNullOrEmpty(account.LoginInfo.HWID))
+        {
+            string newHwid = HWID.GenerateRandom();
+            account.LoginInfo.HWID = newHwid;
+            _dataManager.ChangeLogin(ChangeReason.Update, account.LoginInfo);
+            _dataManager.CommitConfig();
+
+            Log.Information("First launch for {User}: generated and bound HWID {Hwid}", account.Username, newHwid);
+        }
+
+        if (LIHWIDBind)
+        {
+            _hwidString = account.LoginInfo.HWID;
+            HWID.SetHWID(_hwidString);
+        }
     }
 
     private string _hwidString = "";
@@ -609,4 +631,3 @@ public class HideLevelDescriptionConverter : IValueConverter
         return value;
     }
 }
-
