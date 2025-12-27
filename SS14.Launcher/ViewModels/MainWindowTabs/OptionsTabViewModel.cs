@@ -63,7 +63,6 @@ public class OptionsTabViewModel : MainWindowTabViewModel, INotifyPropertyChange
         SetEndpointCommand = new RelayCommand(OnSetEndpointClick);
         DumpConfigCommand = new RelayCommand(DumpConfig.Dump);
 
-        PrepareHwidForLaunch();
         Persist.UpdateLauncherConfig();
         SetTempHwid();
         SetTempGuestUsername();
@@ -317,6 +316,8 @@ public class OptionsTabViewModel : MainWindowTabViewModel, INotifyPropertyChange
 
     private void SetTempHwid()
     {
+        PrepareHwidForLaunch();
+
         if (!LIHWIDBind)
         {
             _hwidString = Cfg.GetCVar(CVars.ForcedHWId);
@@ -334,20 +335,19 @@ public class OptionsTabViewModel : MainWindowTabViewModel, INotifyPropertyChange
     {
         var account = _loginManager.ActiveAccount;
         if (account == null) return;
+        if (string.IsNullOrEmpty(account.LoginInfo.HWID))
+        {
+            string newHwid = HWID.GenerateRandom();
+            account.LoginInfo.HWID = newHwid;
+            _dataManager.ChangeLogin(ChangeReason.Update, account.LoginInfo);
+            _dataManager.CommitConfig();
+
+            Log.Information("Bound new HWID to account {User}: {Hwid}", account.Username, newHwid);
+        }
 
         if (LIHWIDBind)
         {
-            if (string.IsNullOrEmpty(account.LoginInfo.HWID))
-            {
-                string newHwid = HWID.GenerateRandom();
-                account.LoginInfo.HWID = newHwid;
-                _dataManager.ChangeLogin(ChangeReason.Update, account.LoginInfo);
-                _dataManager.CommitConfig();
-
-                Log.Information("Bound new HWID to account {User}: {Hwid}", account.Username, newHwid);
-            }
-            _hwidString = account.LoginInfo.HWID;
-            HWID.SetHWID(_hwidString);
+            HWID.SetHWID(account.LoginInfo.HWID);
         }
     }
 
