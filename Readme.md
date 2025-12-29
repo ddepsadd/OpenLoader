@@ -19,3 +19,5 @@
 PR приветствуются:
 - Создайте issue с описанием проблемы/идеи
 - Сделайте fork, отдельную ветку, изменения и Pull Request
+
+<img width="1170" height="1070" alt="image" src="https://github.com/user-attachments/assets/332b913b-def6-4708-a5ce-dbd9caf0e5b6" />
