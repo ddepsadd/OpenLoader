@@ -22,7 +22,6 @@ public static class HWID
 {
     private static byte[] _hwId = Array.Empty<byte>();
     private static byte[] _hwId2 = Array.Empty<byte>();
-    private static string _hwidString = "";
 
     /// <summary>
     /// Patching the HWId function and replacing it with a custom HWId.
@@ -35,20 +34,11 @@ public static class HWID
             return;
         }
 
-        bool hasValidHwid = !string.IsNullOrEmpty(_hwidString) && CheckHWID(_hwidString);
-
-        if (!hasValidHwid)
-        {
-            MarseyLogger.Log(MarseyLogger.LogType.INFO, "HWIDForcer", "Generating random HWID...");
-            SetHWID(GenerateRandom(), GenerateRandom());
-        }
-
         PatchCalcMethod();
     }
 
     public static void SetModern(string value)
     {
-        _hwidString = value;
         _hwId2 = ConvertToBytes(value);
     }
 
@@ -59,7 +49,6 @@ public static class HWID
 
     public static void SetHWID(string modern, string legacy)
     {
-        _hwidString = modern;
         SetModern(modern);
         SetLegacy(legacy);
     }
@@ -92,6 +81,14 @@ public static class HWID
         }
 
         return result.ToString();
+    }
+
+    private static byte[] GenerateRandomBytes(int length = 32)
+    {
+        Random random = new Random();
+        byte[] bytes = new byte[length];
+        random.NextBytes(bytes);
+        return bytes;
     }
 
     private static void PatchCalcMethod()
@@ -139,6 +136,7 @@ public static class HWID
                     HarmonyPatchType.Postfix
                 );
             }
+
             Helpers.PatchMethod(
                 dummyHwid,
                 "GetModern",
@@ -156,10 +154,14 @@ public static class HWID
 
     private static void RecalcHwid(ref byte[] __result)
     {
-        if (_hwId.Length == 0)
-            return;
-
         string original = BitConverter.ToString(__result).Replace("-", "");
+
+        if (_hwId.Length == 0)
+        {
+            _hwId = GenerateRandomBytes(32);
+            MarseyLogger.Log(MarseyLogger.LogType.INFO, "HWIDForcer", "[LEGACY] No HWID provided, generated random");
+        }
+
         string applied = BitConverter.ToString(_hwId).Replace("-", "");
 
         MarseyLogger.Log(MarseyLogger.LogType.INFO, "HWIDForcer", $"[LEGACY] Original: {original}");
@@ -170,10 +172,14 @@ public static class HWID
 
     private static void RecalcHwid2(ref byte[] __result)
     {
-        if (_hwId2.Length == 0)
-            return;
-
         string original = BitConverter.ToString(__result).Replace("-", "");
+
+        if (_hwId2.Length == 0)
+        {
+            _hwId2 = GenerateRandomBytes(32);
+            MarseyLogger.Log(MarseyLogger.LogType.INFO, "HWIDForcer", "[MODERN] No HWID provided, generated random");
+        }
+
         string applied = BitConverter.ToString(_hwId2).Replace("-", "");
 
         MarseyLogger.Log(MarseyLogger.LogType.INFO, "HWIDForcer", $"[MODERN] Original: {original}");
