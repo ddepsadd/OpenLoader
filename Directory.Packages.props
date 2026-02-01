@@ -5,23 +5,23 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Launcher-loader shared stuff -->
-    <PackageVersion Include="Microsoft.Data.Sqlite" Version="10.0.1" />
+    <PackageVersion Include="Microsoft.Data.Sqlite" Version="10.0.2" />
     <PackageVersion Include="MonoMod.Core" Version="1.3.3" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.5-beta1" />
     <PackageVersion Include="Lib.Harmony" Version="2.4.2" />
     <PackageVersion Include="NP.Ava.Visuals" Version="1.0.48" />
-    <PackageVersion Include="NSec.Cryptography" Version="25.4.0" />
-    <PackageVersion Include="Robust.Natives.Sdl3" Version="0.1.1-sdl3.2.20" />
+    <PackageVersion Include="NSec.Cryptography" Version="26.1.0-preview.1" />
+    <PackageVersion Include="Robust.Natives.Sdl3" Version="0.1.2-sdl3.4.0" />
     <PackageVersion Include="SharpZstd.Interop" Version="1.5.2-beta2" />
     <PackageVersion Include="JetBrains.Annotations" Version="2025.2.4" />
     <!-- Loader -->
-    <PackageVersion Include="Robust.Natives" Version="0.2.3" />
+    <PackageVersion Include="Robust.Natives" Version="0.2.4" />
     <!-- Launcher -->
-    <PackageVersion Include="Avalonia" Version="11.3.10" />
-    <PackageVersion Include="Avalonia.Desktop" Version="11.3.10" />
+    <PackageVersion Include="Avalonia" Version="11.3.11" />
+    <PackageVersion Include="Avalonia.Desktop" Version="11.3.11" />
     <PackageVersion Include="Avalonia.ReactiveUI" Version="11.3.8" />
-    <PackageVersion Include="Avalonia.Diagnostics" Version="11.3.10" />
-    <PackageVersion Include="Avalonia.Themes.Simple" Version="11.3.10" />
+    <PackageVersion Include="Avalonia.Diagnostics" Version="11.3.11" />
+    <PackageVersion Include="Avalonia.Themes.Simple" Version="11.3.11" />
     <PackageVersion Include="CodeHollow.FeedReader" Version="1.2.6" />
     <PackageVersion Include="Dapper" Version="2.1.66" />
     <PackageVersion Include="DynamicData" Version="9.4.1" />
@@ -29,7 +29,7 @@
     <PackageVersion Include="ReactiveUI" Version="20.1.1" />
     <PackageVersion Include="ReactiveUI.Fody" Version="19.5.41" />
     <PackageVersion Include="Robust.Shared.AuthLib" Version="0.1.2" />
-    <PackageVersion Include="Serilog" Version="4.3.1-dev-02395" />
+    <PackageVersion Include="Serilog" Version="4.3.1-dev-02406" />
     <PackageVersion Include="Serilog.Sinks.Console" Version="6.1.1" />
     <PackageVersion Include="Serilog.Sinks.File" Version="8.0.0-dev-02318" />
     <PackageVersion Include="XamlNameReferenceGenerator" Version="1.6.1" />
@@ -41,9 +41,9 @@
     <!-- Test stuff -->
     <PackageVersion Include="nunit" Version="3.13.3" />
     <PackageVersion Include="NUnit.Analyzers" Version="4.11.2" />
-    <PackageVersion Include="NUnit3TestAdapter" Version="6.0.2-beta.1" />
+    <PackageVersion Include="NUnit3TestAdapter" Version="6.1.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
-    <PackageVersion Include="Microsoft.NET.ILLink.Tasks" Version="10.0.1" />
+    <PackageVersion Include="Microsoft.NET.ILLink.Tasks" Version="10.0.2" />
     <PackageVersion Include="coverlet.collector" Version="6.0.4" />
     <!-- Bootstrap -->
     <PackageVersion Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" />
