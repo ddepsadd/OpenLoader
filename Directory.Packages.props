@@ -5,7 +5,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Launcher-loader shared stuff -->
-    <PackageVersion Include="Microsoft.Data.Sqlite" Version="10.0.2" />
+    <PackageVersion Include="Microsoft.Data.Sqlite" Version="11.0.0-preview.1.26104.118" />
     <PackageVersion Include="MonoMod.Core" Version="1.3.3" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.5-beta1" />
     <PackageVersion Include="Lib.Harmony" Version="2.4.2" />
@@ -17,11 +17,11 @@
     <!-- Loader -->
     <PackageVersion Include="Robust.Natives" Version="0.2.4" />
     <!-- Launcher -->
-    <PackageVersion Include="Avalonia" Version="11.3.11" />
-    <PackageVersion Include="Avalonia.Desktop" Version="11.3.11" />
+    <PackageVersion Include="Avalonia" Version="11.3.12" />
+    <PackageVersion Include="Avalonia.Desktop" Version="11.3.12" />
     <PackageVersion Include="Avalonia.ReactiveUI" Version="11.3.8" />
-    <PackageVersion Include="Avalonia.Diagnostics" Version="11.3.11" />
-    <PackageVersion Include="Avalonia.Themes.Simple" Version="11.3.11" />
+    <PackageVersion Include="Avalonia.Diagnostics" Version="11.3.12" />
+    <PackageVersion Include="Avalonia.Themes.Simple" Version="11.3.12" />
     <PackageVersion Include="CodeHollow.FeedReader" Version="1.2.6" />
     <PackageVersion Include="Dapper" Version="2.1.66" />
     <PackageVersion Include="DynamicData" Version="9.4.1" />
@@ -29,7 +29,7 @@
     <PackageVersion Include="ReactiveUI" Version="20.1.1" />
     <PackageVersion Include="ReactiveUI.Fody" Version="19.5.41" />
     <PackageVersion Include="Robust.Shared.AuthLib" Version="0.1.2" />
-    <PackageVersion Include="Serilog" Version="4.3.1-dev-02406" />
+    <PackageVersion Include="Serilog" Version="4.3.2-dev-02419" />
     <PackageVersion Include="Serilog.Sinks.Console" Version="6.1.1" />
     <PackageVersion Include="Serilog.Sinks.File" Version="8.0.0-dev-02318" />
     <PackageVersion Include="XamlNameReferenceGenerator" Version="1.6.1" />
@@ -39,12 +39,12 @@
     <PackageVersion Include="SpaceWizards.Sodium" Version="0.3.0" />
     <PackageVersion Include="Splat" Version="17.2.0" />
     <!-- Test stuff -->
-    <PackageVersion Include="nunit" Version="3.13.3" />
+    <PackageVersion Include="nunit" Version="4.5.0" />
     <PackageVersion Include="NUnit.Analyzers" Version="4.11.2" />
     <PackageVersion Include="NUnit3TestAdapter" Version="6.1.0" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
-    <PackageVersion Include="Microsoft.NET.ILLink.Tasks" Version="10.0.2" />
-    <PackageVersion Include="coverlet.collector" Version="6.0.4" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.3.0" />
+    <PackageVersion Include="Microsoft.NET.ILLink.Tasks" Version="11.0.0-preview.1.26104.118" />
+    <PackageVersion Include="coverlet.collector" Version="8.0.0" />
     <!-- Bootstrap -->
     <PackageVersion Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" />
   </ItemGroup>

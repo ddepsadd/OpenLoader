@@ -20,6 +20,10 @@
         <File Path="publish_linux.sh" />
         <File Path="publish_osx.sh" />
         <File Path="publish_windows.sh" />
+        <File Path="publish.bat" />
+        <File Path="publish_linux.bat" />
+        <File Path="publish_osx.bat" />
+        <File Path="publish_windows.bat" />
     </Folder>
     <Folder Name="/Solution Items/Workflows/">
         <File Path=".github/workflows/build-test.yml" />
